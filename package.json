@@ -1,0 +1,30 @@
+{
+  "name": "kakao-bot",
+  "version": "1.0.0",
+  "description": "",
+  "main": "kakao.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc --build",
+    "clean": "tsc --build --clean"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/knsan189/kakao-bot.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/knsan189/kakao-bot/issues"
+  },
+  "homepage": "https://github.com/knsan189/kakao-bot#readme",
+  "dependencies": {
+    "@typescript-eslint/eslint-plugin": "^5.30.0",
+    "@typescript-eslint/parser": "^5.30.0",
+    "eslint": "^8.18.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-prettier": "^4.1.0",
+    "prettier": "^2.7.1",
+    "typescript": "^4.7.4"
+  }
+}
