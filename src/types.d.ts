@@ -14,15 +14,13 @@ interface Alarm {
   time?: Date;
 }
 
-type MessageResponse = (
-  room: string,
-  msg: string,
-  sender,
-  isGroupChat,
-  replier,
-  ImageDB,
-  packageName,
-  isMultiChat,
-) => void;
-
 type Mode = "ok" | "register";
+
+interface IslandResponse {
+  Island: { Name: string; Reward: string }[];
+  IslandDate: string;
+}
+
+interface String {
+  format: (...args: any) => string;
+}
