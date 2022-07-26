@@ -1,3 +1,9 @@
+const KalingModule = require("kaling");
+const Kakao = new KalingModule();
+
+Kakao.init("35ab11ab0f3f2b560c826d000d063d11", "https://lostark.game.onstove.com");
+Kakao.login("knsan189@kakao.com", "dhswja95");
+
 const MSG_ADD_ALARM = "/알람등록";
 const MSG_LIST_ALARM = "/알람목록";
 const MSG_FIND_USER = "/유저";
@@ -6,6 +12,8 @@ const MSG_TEST = "/테스트";
 const MSG_TODAY_ISLAND = "/오늘모험섬";
 const MSG_FORTUNE = "/운세";
 const MSG_CHAT = ["/대화", "별빛"];
+const MSG_GIFT = "/낚시";
+
 const FortuneSet = new Set();
 let timeStamp = new Date();
 
@@ -54,6 +62,7 @@ function response(
 
     if (msg.indexOf(MSG_TEST) === 0) {
       replier.reply(`${sender}님:${msg.replace(MSG_TEST, "")}`);
+
       return;
     }
 
@@ -105,6 +114,7 @@ function response(
       const {
         charLevel,
         charClass,
+        charImg,
         itemLevel,
         serverName,
         guildName,
@@ -113,9 +123,7 @@ function response(
         engraves,
       } = JSON.parse(response);
 
-      let message = "📃 " + nickname;
-
-      message += "\n";
+      let message = "------------------------------------";
       message += `\n@${serverName} / ${guildName}`;
       message += `\n${charClass} 💎 Lv ${itemLevel} (${charLevel})`;
       message += "\n";
@@ -135,6 +143,29 @@ function response(
       message += `\n⚔ [장비]`;
       equipments.forEach((item) => {
         message += `\n ${item}`;
+      });
+
+      Kakao.send(room, {
+        link_ver: "4.0",
+        template_object: {
+          object_type: "feed",
+          button_title: "",
+          content: {
+            title: `${nickname} 정보`,
+            image_url: charImg,
+            link: {
+              web_url: `https://lostark.game.onstove.com/Profile/Character/${nickname}`,
+              mobile_web_url: `https://lostark.game.onstove.com/Profile/Character/${nickname}`,
+            },
+            description: "",
+          },
+          buttons: [
+            {
+              title: "",
+              link: {},
+            },
+          ],
+        },
       });
 
       replier.reply(message);
@@ -195,6 +226,39 @@ function response(
         return;
       }
       replier.reply(response);
+      return;
+    }
+
+    if (msg === MSG_GIFT) {
+      Kakao.send(room, {
+        link_ver: "4.0",
+        template_object: {
+          object_type: "feed",
+          button_title: "",
+          content: {
+            title: `선물과 메세지를 보냈습니다. 지금 확인해보세요 !`,
+            image_url: "https://hwanggu1.github.io/nion-cdn/bbq2.png",
+            link: {
+              web_url: `https://lostark.game.onstove.com/Profile/Character`,
+            },
+            description: "",
+          },
+          buttons: [
+            {
+              title: "선물함으로 가기",
+              link: {
+                web_url: "https://lostark.game.onstove.com/Profile/Character",
+              },
+            },
+            {
+              title: "감동카드",
+              link: {
+                web_url: "https://lostark.game.onstove.com/Profile/Character",
+              },
+            },
+          ],
+        },
+      });
     }
   } catch (err) {
     Log.i(err);
